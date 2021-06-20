@@ -1,25 +1,36 @@
 package com.stglabs.geometricoperations.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.stglabs.geometricoperations.models.IncomingRequestBody;
+import com.stglabs.geometricoperations.models.Line;
+import com.stglabs.geometricoperations.service.Service;
 
 @RestController
 @RequestMapping("stglabs")
 public class Controller {
+	
+	@Autowired
+	private Service service;
 
-	@RequestMapping("/parallelism")
-	public String parallelism() 
+	@PostMapping("/parallelism")
+	public String parallelism(@RequestBody IncomingRequestBody incomingRequestBody ) 
 	{
-		return "parallelism";
+		return service.parallelism(incomingRequestBody.getL1(), incomingRequestBody.getL2());
 	}
-	@RequestMapping("/perpendicularity")
-	public String perpendicularity() 
+	@PostMapping("/perpendicularity")
+	public String perpendicularity(@RequestBody IncomingRequestBody incomingRequestBody) 
 	{
-		return "perpendicularity";
+		return service.perpendicularity(incomingRequestBody.getL1(), incomingRequestBody.getL2());
 	}
-	@RequestMapping("/incidence")
-	public String incidence() 
+	@PostMapping("/incidence")
+	public String incidence(@RequestBody IncomingRequestBody incomingRequestBody) 
 	{
-		return "incidence";
+		return service.incidence(incomingRequestBody.getL1(), incomingRequestBody.getL2());
 	}
 }
