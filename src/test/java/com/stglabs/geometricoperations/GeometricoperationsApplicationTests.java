@@ -8,13 +8,27 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.stglabs.geometricoperations.models.Line;
 import com.stglabs.geometricoperations.models.Point;
-import com.stglabs.geometricoperations.service.Service;
+import com.stglabs.geometricoperations.service.GeometricOperationsService;
 
 @SpringBootTest
 class GeometricoperationsApplicationTests {
 
 	@Autowired
-	Service service;
+    GeometricOperationsService service;
+
+	@Test
+	public void testGetYIntercept() {
+		Line line = new Line(new Point("3", "9"), new Point("2", "7"));
+		Double response = service.getYIntercept(line);
+		assertEquals(3, response,"The response data does not match");
+	}
+
+	@Test
+	public void testCalculateDistance() {
+		Line line = new Line(new Point("3", "4"), new Point("7", "1"));
+		double distance = service.calculateDistanceByTwoPoint(line);
+		assertEquals(distance, 5, 0.001);
+	}
 
 	@Test
 	void testParallel() {
